@@ -1,4 +1,4 @@
-package com2.cloudDomus;
+package com.cloudDomus.cloudDommus;
 
 import java.util.List;
 
@@ -38,17 +38,6 @@ public class WorkController {
 
         return repository.findById(id).orElseThrow(() -> new WorksNotFoundException(id));
     }
-    
-    /*@GetMapping("/works/{id}")
-    Resource<Works> one(@PathVariable Long id) {
-
-	Works work = repository.findById(id)
-		.orElseThrow(() -> new WorksNotFoundException(id));
-
-	return new Resource<>(work,
-		linkTo(methodOn(WorkController.class).one(id)).withSelfRel(),
-		linkTo(methodOn(WorkController.class).all()).withRel("works"));
-    }*/
 
     @PutMapping("/works/{id}")
     Works replaceWorks(@RequestBody Works newWork, @PathVariable Long id) {

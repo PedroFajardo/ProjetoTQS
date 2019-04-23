@@ -1,4 +1,4 @@
-package com2.cloudDomus;
+package com.cloudDomus.cloudDommus;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class CloudDomusApplicationTests {
+public class CloudDommusApplicationTests {
 
 	@Test
 	public void contextLoads() {

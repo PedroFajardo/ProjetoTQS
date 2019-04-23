@@ -1,4 +1,4 @@
-package com2.cloudDomus;
+package com.cloudDomus.cloudDommus;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

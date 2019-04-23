@@ -1,4 +1,4 @@
-package CloudDomus;
+package com.cloudDomus.cloudDommus;
 
 import lombok.Data;
 
@@ -21,4 +21,6 @@ public class Works {
         this.numberWorkers = numberWorkers;
         this.description = description;
     }
+    
+    public Works(){}
 }

@@ -1,4 +1,4 @@
-package CloudDomus;
+package com.cloudDomus.cloudDommus;
 
 class WorksNotFoundException extends RuntimeException {
 
