@@ -1,8 +1,7 @@
-CloudDomus/Works.class
-CloudDomus/WorkerRepository.class
-CloudDomus/WorkNotFoundAdvice.class
-CloudDomus/WorkController.class
-.netbeans_automatic_build
-CloudDomus/LoadDatabase.class
-CloudDomus/WorksNotFoundException.class
-CloudDomus/MainApp.class
+com2/cloudDomus/WorkNotFoundAdvice.class
+com2/cloudDomus/WorksNotFoundException.class
+com2/cloudDomus/CloudDomusApplication.class
+com2/cloudDomus/LoadDatabase.class
+com2/cloudDomus/Works.class
+com2/cloudDomus/WorkController.class
+com2/cloudDomus/WorkerRepository.class

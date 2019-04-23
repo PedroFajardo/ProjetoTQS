@@ -1,7 +1,7 @@
-/home/vitor/Desktop/Universidade/3ºano/2ºsemestre/TQS/Project/src/main/java/CloudDomus/Works.java
-/home/vitor/Desktop/Universidade/3ºano/2ºsemestre/TQS/Project/src/main/java/CloudDomus/MainApp.java
-/home/vitor/Desktop/Universidade/3ºano/2ºsemestre/TQS/Project/src/main/java/CloudDomus/WorkController.java
-/home/vitor/Desktop/Universidade/3ºano/2ºsemestre/TQS/Project/src/main/java/CloudDomus/WorksNotFoundException.java
-/home/vitor/Desktop/Universidade/3ºano/2ºsemestre/TQS/Project/src/main/java/CloudDomus/WorkerRepository.java
-/home/vitor/Desktop/Universidade/3ºano/2ºsemestre/TQS/Project/src/main/java/CloudDomus/LoadDatabase.java
-/home/vitor/Desktop/Universidade/3ºano/2ºsemestre/TQS/Project/src/main/java/CloudDomus/WorkNotFoundAdvice.java
+/home/vitor/Desktop/Universidade/3ºano/2ºsemestre/TQS/cloudDomus/src/main/java/com2/cloudDomus/WorkerRepository.java
+/home/vitor/Desktop/Universidade/3ºano/2ºsemestre/TQS/cloudDomus/src/main/java/com2/cloudDomus/Works.java
+/home/vitor/Desktop/Universidade/3ºano/2ºsemestre/TQS/cloudDomus/src/main/java/com2/cloudDomus/WorkNotFoundAdvice.java
+/home/vitor/Desktop/Universidade/3ºano/2ºsemestre/TQS/cloudDomus/src/main/java/com2/cloudDomus/CloudDomusApplication.java
+/home/vitor/Desktop/Universidade/3ºano/2ºsemestre/TQS/cloudDomus/src/main/java/com2/cloudDomus/WorkController.java
+/home/vitor/Desktop/Universidade/3ºano/2ºsemestre/TQS/cloudDomus/src/main/java/com2/cloudDomus/LoadDatabase.java
+/home/vitor/Desktop/Universidade/3ºano/2ºsemestre/TQS/cloudDomus/src/main/java/com2/cloudDomus/WorksNotFoundException.java
