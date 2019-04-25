@@ -1,7 +1,0 @@
-com/cloudDomus/cloudDommus/WorkController.class
-com/cloudDomus/cloudDommus/CloudDommusApplication.class
-com/cloudDomus/cloudDommus/WorksNotFoundException.class
-com/cloudDomus/cloudDommus/WorkNotFoundAdvice.class
-com/cloudDomus/cloudDommus/LoadDatabase.class
-com/cloudDomus/cloudDommus/Works.class
-com/cloudDomus/cloudDommus/WorkerRepository.class

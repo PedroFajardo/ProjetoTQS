@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>CloudDomus</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    #domestic_service {
+
+        background-color: LightCyan;
+        border: 2px solid black;
+        margin-left: 2%;
+        margin-right: 2%;
+        margin-top: 1%;
+        border-radius: 1%;
+
+    }
+
+  </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a href="main_page.html"><img src="clouddomus3.png" alt="cloudDomusLogo" style="width: 200px; height: 50px; margin-right: 1%"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="main_page.html">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="Profile.html">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="myServices.html">My Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="add_service.html">Add Service</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="request.html">Requests</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" style="margin-left: 1%">Login</button>
+      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal2" style="margin-left: 1%">Register</button>
+    </div>
+  </nav>
+
+  <!-- The Modal -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Login</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            </div>
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+            <button type="submit" class="btn btn-primary" style="margin-top: 2%">Submit</button>
+          </form>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="myModal2">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Register</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-6 col-sm-6">
+                  <label for="InputFirst">First Name</label>
+                  <input type="first_name" class="form-control" id="InputFirstName" aria-describedby="firstNameHelp" placeholder="Enter your First Name">
+                </div>
+                <div class="col-md-6 col-sm-6">
+                  <label for="InputLast">Last Name</label>
+                  <input type="last_name" class="form-control" id="InputlastName" aria-describedby="lastNameHelp" placeholder="Enter your Last Name">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="InputEmail1">Email address</label>
+              <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+              <label for="InputPhone">Phone number</label>
+              <input type="phone" class="form-control" id="InputPhone" aria-describedby="phoneHelp" placeholder="Enter your Phone Number">
+              <small id="phoneHelp" class="form-text text-muted">Required for people to contact with you</small>
+            </div>
+            <div class="form-group">
+              <label for="InputBirthday">Birthday</label>
+              <input type="date" class="form-control" id="InputBirthday">
+            </div>
+            <div class="form-group">
+              <label for="InputPassword1">Password</label>
+              <input type="password" class="form-control" id="InputPassword" placeholder="Password">
+            </div>
+            <div class="form-group">
+              <label for="InputPasswordConfirm1">Confirm Password</label>
+              <input type="password_confirm" class="form-control" id="InputPasswordConfirm" placeholder="PasswordConfirm">
+            </div>
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="Check1">Check me out</label>
+            </div>
+            <button type="submit" class="btn btn-primary" style="margin-top: 2%">Submit</button>
+          </form>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="container mt-3">
+    <form>
+        <div class="form-group">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <label for="InputFirst">First Name</label>
+                <input type="first_name" class="form-control" id="InputFirstName" aria-describedby="firstNameHelp" placeholder="Enter your First Name">
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <label for="InputLast">Last Name</label>
+                <input type="last_name" class="form-control" id="InputLastName" aria-describedby="lastNameHelp" placeholder="Enter your Last Name">
+            </div>
+        </div>
+        </div>
+        <div class="form-group">
+            <label for="InputSpecification">Type of Service:</label>
+            <select name="Service" style="margin-left: 1%;">
+                <option value="domestics">Domestics</option>
+                <option value="hospitality">Hospitality</option>
+            </select> 
+        </div>
+        <div class="form-group">
+            <label for="InputSpecification">Specification of the Service</label>
+            <input type="Specification" class="form-control" id="InputSpecification" aria-describedby="specificationHelp" placeholder="Type of Service">
+            <small id="specificationHelp" class="form-text text-muted">Type what you will do in type of service you have chosen</small>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <label for="InputStartTime">Start Time</label>
+                <input type="start_time" class="form-control" id="InputStartTime" aria-describedby="startTimeHelp" placeholder="When will you start?">
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <label for="InputEndTime">End Time</label>
+                <input type="end_time" class="form-control" id="InputEndTime" aria-describedby="endTimeHelp" placeholder="When will you end?">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="InputPhone">Phone number</label>
+            <input type="phone" class="form-control" id="InputPhone" aria-describedby="phoneHelp" placeholder="Enter your Phone Number">
+            <small id="phoneHelp" class="form-text text-muted">Required for people to contact with you</small>
+        </div>
+        <div class="form-group">
+            <label for="InputDescription">Description</label>
+            <input type="Description" class="form-control" id="InputDescription" aria-describedby="descriptionHelp" placeholder="Type of Service">
+            <small id="sescriptionHelp" class="form-text text-muted">Write a bit about what will you do at the service you will publish</small>
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-top: 2%" data-toggle="modal" data-target="#addModal">Add Service</button>
+    </form>
+  </div> 
+
+  <div class="modal fade" id="addModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title" style="color-green">Success!</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <h4>The service has been added!</h4>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!--Scripts-->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+</html> 
