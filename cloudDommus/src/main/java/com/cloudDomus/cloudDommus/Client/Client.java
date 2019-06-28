@@ -39,7 +39,8 @@ public class Client {
         this.reservationList = reservationList;
     }
 
-    public Client(){}
+    public Client(){
+    }
 
     public Long getId() {
         return id;
