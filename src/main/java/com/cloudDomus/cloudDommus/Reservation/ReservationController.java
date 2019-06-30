@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 @RestController
 @RequestMapping("/api/reservations")
@@ -32,15 +33,26 @@ public class ReservationController {
     @ApiOperation(value = "Get reservation by Id", response = List.class)
     @GetMapping("/reservation/{id}")
     public Reservation getReservationByID(@PathVariable Long id) {
-
-        return repository.findById(id).orElseThrow(() -> new ReservationNotFoundException(id));
+        return repository.findByID(id);
     }
 
     @ApiOperation(value = "Delete a reservation by its Id", response = List.class)
     @DeleteMapping("/Reservation/{id}")
-    public void deleteReservation(@PathVariable Long id) {
+    @Transactional(rollbackFor = ReservationNotFoundException.class)
+    public Reservation deleteReservation(@PathVariable Long id) throws ReservationNotFoundException {
+        Reservation deleted = repository.findByID(id);
+        if(deleted == null){
+            throw new ReservationNotFoundException(id);
+        }
         repository.deleteById(id);
+        deleted.setId(null);
+        return repository.findByID(id);
     }
 
+    public void setRepository(ReservationRepository repository) {
+        this.repository = repository;
+    }
+    
+    
 
 }

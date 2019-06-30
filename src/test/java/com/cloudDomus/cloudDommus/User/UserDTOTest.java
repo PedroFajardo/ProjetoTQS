@@ -5,8 +5,6 @@
  */
 package com.cloudDomus.cloudDommus.User;
 
-import com.cloudDomus.cloudDommus.Client.Client;
-import com.cloudDomus.cloudDommus.Manager.Manager;
 
 /**
  *
@@ -14,31 +12,24 @@ import com.cloudDomus.cloudDommus.Manager.Manager;
  */
 public class UserDTOTest {
     
-    public UserDTOTest() {
-    }
     
-    public static UserDTO createDTO(Long id, String firstName, String lastName) {
+    public static UserDTO createDTO(Long id, String type, String firstName, String lastName, String email, String username, String password, String address, int phone) {
         UserDTO dto = new UserDTO();
-
         dto.setId(id);
         dto.setFirstName(firstName);
         dto.setLastName(lastName);
+        dto.setEmail(email);
+        dto.setPassword(password);
+        dto.setAddress(address);
+        dto.setPhone(phone);
+        dto.setUsername(username);
+        dto.setType(type);
         return dto;
     }
-
-    public static Client createModelObjectClient(Long id, String firstName, String lastName) {
-        Client model = new Client();
-
-        model.setId(id);
-
-        return model;
-    }
     
-    public static Manager createModelObjectManager(Long id, String firstName, String lastName) {
-        Manager model = new Manager();
-
+    public static User createModelObjectUSer(Long id, String firstName, String lastName, String email, String username, String password, String address, int phone) {
+        User model = new User();
         model.setId(id);
-
         return model;
     }
 }

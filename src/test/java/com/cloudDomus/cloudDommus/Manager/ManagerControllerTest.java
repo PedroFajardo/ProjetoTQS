@@ -74,23 +74,23 @@ public class ManagerControllerTest {
      * Test of deleteManager method, of class ManagerController.
      */
     @Test
-    public void testDeleteManager() {
-        Manager expected = null;
-        Manager manager = ManagerDTOTest.createModelObjectManager(USER_ID, "aaa", "bbb");
+    public void testDeleteManager() throws ManagerNotFoundException{
+        Manager expected = ManagerDTOTest.createModelObjectManager(null, null, null); ;
+        Manager manager = ManagerDTOTest.createModelObjectManager(USER_ID, null, null);
         when(managerRepositoryMock.deleteByID(USER_ID)).thenReturn(manager);
-        if(manager!=null){  
-            managerRepositoryMock.delete(manager);
-            verify(managerRepositoryMock, times(1)).delete(manager);
-            manager = managerController.getManagerByID(USER_ID);
-        }
-        assertEquals(expected, manager);
+        Manager result = managerController.deleteManager(USER_ID);
+        verify(managerRepositoryMock, times(1)).deleteByID(USER_ID);
+        verify(managerRepositoryMock, times(1)).deleteById(USER_ID);
+        verifyNoMoreInteractions(managerRepositoryMock);
+        assertEquals(expected, result);
     }
     
     @Test(expected = ManagerNotFoundException.class)
-    public void updateWhenManagerIsNotFound() throws ManagerNotFoundException {
-        ManagerDTO updated = ManagerDTOTest.createDTO(USER_ID, null, null);
-        when(managerRepositoryMock.findByID(updated.getId())).thenReturn(null);
+    public void deleteWhenManagerIsNotFound() throws ManagerNotFoundException {
+        when(managerRepositoryMock.deleteByID(USER_ID)).thenReturn(null);
         managerController.deleteManager(USER_ID);
-    } 
+        verify(managerRepositoryMock, times(1)).deleteByID(USER_ID);
+        verifyNoMoreInteractions(managerRepositoryMock);
+    }
     
 }

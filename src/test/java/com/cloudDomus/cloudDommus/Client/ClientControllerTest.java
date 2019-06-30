@@ -5,7 +5,6 @@
  */
 package com.cloudDomus.cloudDommus.Client;
 
-import com.cloudDomus.cloudDommus.User.UserDTO;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.AfterClass;
@@ -78,15 +77,16 @@ public class ClientControllerTest {
      * Test of deleteClient method, of class ClientController.
      */
     @Test
-    public void testDeleteClient() {
-        Client client = ClientDTOTest.createModelObjectClient(USER_ID, "aaa", "bbb");
+    public void testDeleteClient() throws ClientNotFoundException{
+        Client expected = ClientDTOTest.createModelObjectClient(null, null, null);
+        Client client = ClientDTOTest.createModelObjectClient(USER_ID, null, null);
         when(clientRepositoryMock.deleteByID(USER_ID)).thenReturn(client);
-        if(client!=null){  
-            clientRepositoryMock.delete(client);
-            verify(clientRepositoryMock, times(1)).delete(client);
-            client = clientController.getClientByID(USER_ID);
-        }
-        assertEquals(null, client);
+        Client result = clientController.deleteClient(USER_ID);
+        verify(clientRepositoryMock, times(1)).deleteByID(USER_ID);
+        verify(clientRepositoryMock, times(1)).deleteById(USER_ID);
+        verifyNoMoreInteractions(clientRepositoryMock);
+        System.out.println(result);
+        assertEquals(expected, result);
     }
 
     /**
@@ -101,9 +101,10 @@ public class ClientControllerTest {
     }
     
     @Test(expected = ClientNotFoundException.class)
-    public void updateWhenClientIsNotFound() throws ClientNotFoundException {
-        ClientDTO updated = ClientDTOTest.createDTO(USER_ID, null, null);
-        when(clientRepositoryMock.findByID(updated.getId())).thenReturn(null);
+    public void deleteWhenClientIsNotFound() throws ClientNotFoundException {
+        when(clientRepositoryMock.deleteByID(USER_ID)).thenReturn(null);
         clientController.deleteClient(USER_ID);
+        verify(clientRepositoryMock, times(1)).deleteByID(USER_ID);
+        verifyNoMoreInteractions(clientRepositoryMock);
     } 
 }

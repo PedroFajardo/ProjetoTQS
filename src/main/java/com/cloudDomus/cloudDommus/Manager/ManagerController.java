@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 @RestController
 @RequestMapping("/api/managers")
@@ -38,8 +39,15 @@ public class ManagerController {
 
     @ApiOperation(value = "Delete a manager by its Id", response = List.class)
     @DeleteMapping("/Manager/{id}")
-    public void deleteManager(@PathVariable Long id) {
-        repository.deleteByID(id);
+    @Transactional(rollbackFor = ManagerNotFoundException.class)
+    public Manager deleteManager(@PathVariable Long id) {
+        Manager deleted = repository.deleteByID(id);
+        if(deleted == null){
+            throw new ManagerNotFoundException(id);
+        }
+        repository.deleteById(id);
+        deleted.setId(null);
+        return deleted;
     }
 
     public void setRepository(ManagerRepository repository) {

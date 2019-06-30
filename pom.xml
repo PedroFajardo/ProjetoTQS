@@ -82,6 +82,12 @@
 	  <version>6.8.1</version>
 	  <scope>test</scope>
 	 </dependency>
+	 <dependency>
+	  <groupId>com.cloudDomus</groupId>
+	  <artifactId>cloudDommus</artifactId>
+	  <version>0.0.1-SNAPSHOT</version>
+	  <type>jar</type>
+	 </dependency>
 	</dependencies>
 
 	<build>
