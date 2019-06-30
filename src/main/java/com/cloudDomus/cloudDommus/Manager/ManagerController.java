@@ -33,14 +33,18 @@ public class ManagerController {
     @GetMapping("/manager/{id}")
     public Manager getManagerByID(@PathVariable Long id) {
 
-        return repository.findById(id).orElseThrow(() -> new ManagerNotFoundException(id));
+        return repository.findByID(id);
     }
 
     @ApiOperation(value = "Delete a manager by its Id", response = List.class)
     @DeleteMapping("/Manager/{id}")
     public void deleteManager(@PathVariable Long id) {
-        repository.deleteById(id);
+        repository.deleteByID(id);
     }
 
+    public void setRepository(ManagerRepository repository) {
+        this.repository = repository;
+    }
 
+    
 }

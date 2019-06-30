@@ -16,6 +16,10 @@ public class ClientController {
     @Autowired
     ClientRepository repository;
 
+    public void setRepository(ClientRepository repository) {
+        this.repository = repository;
+    }
+
     // Aggregate root
     @ApiOperation(value = "View a list of available Client", response = List.class)
     @GetMapping("/client")
@@ -34,13 +38,13 @@ public class ClientController {
     @GetMapping("/client/{id}")
     public Client getClientByID(@PathVariable Long id) {
 
-        return repository.findById(id).orElseThrow(() -> new ClientNotFoundException(id));
+        return repository.findByID(id);
     }
 
     @ApiOperation(value = "Delete a work by its Id", response = List.class)
     @DeleteMapping("/Client/{id}")
-    public void deleteClient(@PathVariable Long id) {
-        repository.deleteById(id);
+    public Client deleteClient(@PathVariable Long id) {
+        return repository.deleteByID(id);
     }
 
 }
