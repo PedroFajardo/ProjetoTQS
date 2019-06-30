@@ -2,24 +2,6 @@ function validateLoginForm(){
     var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
 
-    console.log(email)
-    console.log(password)
-
-    /*var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "POST", 'http://localhost:8080/api/users/login',true); // false for synchronous request
-    xmlHttp.setRequestHeader("Access-Control-Allow-Origin","*");
-    xmlHttp.setRequestHeader("Access-Control-Allow-Credentials", "true");
-    xmlHttp.setRequestHeader("Access-Control-Allow-Headers", "Content-Type");
-
-        var data = new FormData();
-        data.append('email', email);
-        data.append('passwordd', password);
-
-
-    xmlHttp.send(data);
-
-    console.log(xmlHttp.response);*/
-
     var data = fetch("http://localhost:8080/api/users/login",
     {
             mode: 'cors',
@@ -33,12 +15,16 @@ function validateLoginForm(){
         .then( data=>{return data.json()})
         .then(res=>{
 
+            console.log(res);
             sessionStorage.setItem("user_id",  res.user_id);
             sessionStorage.setItem("userType", res.userType);
 
             if(sessionStorage.getItem("userType") == "client")
                 window.location.href = "client/client.html";
-
+            else if (sessionStorage.getItem("userType") == "worker")
+                window.location.href = "worker/worker.html";
+            else if (sessionStorage.getItem("userType") == "manager")
+                window.location.href = "manager/manager.html"
         })
 
 
