@@ -2,8 +2,16 @@ package com.cloudDomus.cloudDommus.Client;
 
 import java.util.List;
 
+import com.cloudDomus.cloudDommus.LoadDatabase;
+import com.cloudDomus.cloudDommus.Reservation.Reservation;
+import com.cloudDomus.cloudDommus.Reservation.ReservationController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +23,11 @@ public class ClientController {
 
     @Autowired
     ClientRepository repository;
+
+    @Autowired
+    ReservationController reservationController;
+
+    private final Logger log =  LoggerFactory.getLogger(LoadDatabase.class);
 
     // Aggregate root
     @ApiOperation(value = "View a list of available Client", response = List.class)
@@ -41,6 +54,23 @@ public class ClientController {
     @DeleteMapping("/Client/{id}")
     public void deleteClient(@PathVariable Long id) {
         repository.deleteById(id);
+    }
+
+    @ApiOperation(value = "Add reservation to client", response = List.class)
+    @PostMapping("/reservation/{id}")
+    public String putReservation(@PathVariable Long id, @RequestBody String params) throws JSONException {
+
+        Reservation reservation = reservationController.getReservationByID(id);
+
+        JSONObject param = new JSONObject(params);
+
+        String user_id = param.get("user_id").toString();
+
+        Client client = this.getClientByID(Long.parseLong(user_id));
+
+        reservation.setClient(client);
+
+        return "Reservation requested";
     }
 
 }

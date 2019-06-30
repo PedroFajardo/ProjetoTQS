@@ -1,5 +1,7 @@
 package com.cloudDomus.cloudDommus.Reservation;
 
+import com.cloudDomus.cloudDommus.Client.Client;
+import com.cloudDomus.cloudDommus.Client.ClientController;
 import com.cloudDomus.cloudDommus.LoadDatabase;
 import com.cloudDomus.cloudDommus.Service.Service;
 import com.cloudDomus.cloudDommus.Service.ServiceController;
@@ -40,6 +42,9 @@ public class ReservationController {
 
     @Autowired
     UserController userController;
+
+    @Autowired
+    ClientController clientController;
 
     private final Logger log =  LoggerFactory.getLogger(LoadDatabase.class);
 
@@ -88,14 +93,22 @@ public class ReservationController {
 
     @ApiOperation(value = "Get reservations by Worker Id", response = List.class)
     @GetMapping("/reservation/worker/{id}")
-    public List<Reservation> getReservationsByUserID(@PathVariable Long id) {
+    public List<Reservation> getReservationsByWorkerID(@PathVariable Long id) {
 
-        log.info("here");
         Worker worker = workerController.getWorkerByID(id);
 
-        log.info(worker.getReservations().toString());
-
         return worker.getReservations();
+    }
+
+    @ApiOperation(value = "Get reservations by Client Id", response = List.class)
+    @GetMapping("/reservation/client/{id}")
+    public List<Reservation> getReservationsByClientID(@PathVariable Long id) {
+
+        Client client = clientController.getClientByID(id);
+
+        log.info(client.getReservationList().toString());
+
+        return client.getReservationList();
     }
 
 

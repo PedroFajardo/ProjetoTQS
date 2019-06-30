@@ -1,5 +1,6 @@
 package com.cloudDomus.cloudDommus.Reservation;
 
+import com.cloudDomus.cloudDommus.Client.Client;
 import com.cloudDomus.cloudDommus.Service.Service;
 import com.cloudDomus.cloudDommus.Worker.Worker;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -51,6 +52,11 @@ public class Reservation {
     @JoinColumn
     @JsonBackReference
     private Worker worker;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn
+    @JsonBackReference
+    private Client client;
 
     public Reservation(List<Service> service, String description, Date startHour, Date endHour, Double priceHour, String address) {
         this.service = service;
@@ -129,7 +135,6 @@ public class Reservation {
         this.address = address;
     }
 
-
     public Worker getWorker() {
         return worker;
     }
@@ -138,8 +143,16 @@ public class Reservation {
         this.worker = worker;
     }
 
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
     @Override
-    public String   toString() {
+    public String toString() {
         return "Reservation{" +
                 "id=" + id +
                 ", service=" + service +
@@ -148,6 +161,8 @@ public class Reservation {
                 ", endHour=" + endHour +
                 ", priceHour=" + priceHour +
                 ", address='" + address + '\'' +
+                ", worker=" + worker +
+                ", client=" + client +
                 '}';
     }
 }

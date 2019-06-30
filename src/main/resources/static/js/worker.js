@@ -43,7 +43,7 @@ function validateReservationForm(){
         .then( data=>{return data.json()})
         .then(res=>{
             console.log(res)
-            //window.location.href = "myReservations.html";
+            window.location.href = "myReservations.html";
         })
 }
 

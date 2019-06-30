@@ -2,6 +2,7 @@ package com.cloudDomus.cloudDommus.Client;
 
 import com.cloudDomus.cloudDommus.Reservation.Reservation;
 import com.cloudDomus.cloudDommus.User.User;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -18,9 +19,9 @@ public class Client extends User{
     @ApiModelProperty(notes = "The database generated Client ID")
     private @Id @GeneratedValue Long id;
 
-    @Column
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     @ApiModelProperty(notes = "Client Reservation List")
+    @JsonManagedReference
     private List<Reservation> reservationList = new ArrayList<>();
 
     public Client(String firstName, String lastName, String email, String username, String password, String address, int phone, List<Reservation> reservationList) {
