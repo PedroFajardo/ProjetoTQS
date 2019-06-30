@@ -1,13 +1,12 @@
 package com.cloudDomus.cloudDommus.Service;
 
+import com.cloudDomus.cloudDommus.Reservation.Reservation;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -24,6 +23,11 @@ public class Service {
     @Column
     @ApiModelProperty(notes = "Service Description")
     private String description;
+
+    @Column
+    @ManyToMany
+    @ApiModelProperty(notes = "Service Reservation")
+    List<Reservation> reservation;
 
     public Service(String type, String description) {
         this.type = type;
@@ -56,12 +60,21 @@ public class Service {
         this.description = description;
     }
 
+    public List<Reservation> getReservations() {
+        return reservation;
+    }
+
+    public void setReservations(List<Reservation> reservation) {
+        this.reservation = reservation;
+    }
+
     @Override
     public String toString() {
         return "Service{" +
                 "id=" + id +
                 ", type='" + type + '\'' +
                 ", description='" + description + '\'' +
+                ", reservation=" + reservation +
                 '}';
     }
 }

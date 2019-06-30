@@ -1,6 +1,7 @@
 package com.cloudDomus.cloudDommus.Reservation;
 
 import com.cloudDomus.cloudDommus.Service.Service;
+import com.cloudDomus.cloudDommus.Worker.Worker;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,9 +20,9 @@ public class Reservation {
     private @Id @GeneratedValue Long id;
 
     @Column
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany
     @ApiModelProperty(notes = "Reservation Service")
-    private List<Service> service = new ArrayList<>();
+    private List<Service> service;
 
     @Column
     @ApiModelProperty(notes = "Reservation Description")
@@ -42,6 +43,10 @@ public class Reservation {
     @Column
     @ApiModelProperty(notes = "Reservation Client Address")
     private String address;
+
+    @ManyToOne
+    @JoinColumn(name = "worker_id")
+    private Worker worker;
 
     public Reservation(List<Service> service, String description, Date startHour, Date endHour, Double priceHour, String address) {
         this.service = service;
@@ -120,8 +125,16 @@ public class Reservation {
         this.address = address;
     }
 
+    public Worker getWorker() {
+        return worker;
+    }
+
+    public void setWorker(Worker worker) {
+        this.worker = worker;
+    }
+
     @Override
-    public String toString() {
+    public String   toString() {
         return "Reservation{" +
                 "id=" + id +
                 ", service=" + service +
@@ -130,6 +143,7 @@ public class Reservation {
                 ", endHour=" + endHour +
                 ", priceHour=" + priceHour +
                 ", address='" + address + '\'' +
+                ", worker=" + worker +
                 '}';
     }
 }

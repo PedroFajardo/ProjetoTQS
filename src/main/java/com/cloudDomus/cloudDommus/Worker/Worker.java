@@ -26,7 +26,7 @@ public class Worker extends User{
     private int[] reviewScores;
 
     @Column
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "worker", cascade = CascadeType.ALL, orphanRemoval = true)
     @ApiModelProperty(notes = "Worker Reservation List")
     private List<Reservation> reservations = new ArrayList<>();
 

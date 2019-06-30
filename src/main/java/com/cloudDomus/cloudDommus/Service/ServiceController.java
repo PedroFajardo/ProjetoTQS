@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import org.springframework.transaction.annotation.Transactional;
 
 @RestController
 @RequestMapping("/api/services")
@@ -34,25 +33,13 @@ public class ServiceController {
     @GetMapping("/service/{id}")
     public Service getServiceByID(@PathVariable Long id) {
 
-        return repository.findByID(id);
+        return repository.findById(id).orElseThrow(() -> new ServiceNotFoundException(id));
     }
 
     @ApiOperation(value = "Delete a service by its Id", response = List.class)
     @DeleteMapping("/Service/{id}")
-    @Transactional(rollbackFor = ServiceNotFoundException.class)
-    public Service deleteService(@PathVariable Long id) throws ServiceNotFoundException{
-        Service deleted = repository.findByID(id);
-        if(deleted == null){
-            throw new ServiceNotFoundException(id);
-        }
+    public void deleteService(@PathVariable Long id) {
         repository.deleteById(id);
-        deleted.setId(null);
-        return deleted;
     }
 
-    public void setRepository(ServiceRepository repository) {
-        this.repository = repository;
-    }
-    
-    
 }

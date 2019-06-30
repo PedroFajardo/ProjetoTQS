@@ -22,7 +22,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import org.springframework.transaction.annotation.Transactional;
 
 @RestController
 @RequestMapping("/api/reservations")
@@ -72,15 +71,15 @@ public class ReservationController {
 
         Reservation reservation = new Reservation(description, startHour, endHour, priceHour);
 
-
         for (int i = 0; i < services.length(); i++) {
             reservation.addService(serviceController.getServiceByID(services.getLong(i)));
         }
 
         Worker worker = workerController.getWorkerByID(Long.parseLong(user_id));
 
-        worker.addReservation(reservation);
+        reservation.setWorker(worker);
 
+        log.info(reservation.toString());
         return repository.save(reservation);
 
     }
@@ -89,7 +88,7 @@ public class ReservationController {
     @ApiOperation(value = "Get reservation by Id", response = List.class)
     @GetMapping("/reservation/{id}")
     public Reservation getReservationByID(@PathVariable Long id) {
-        return repository.findByID(id);
+        return repository.findById(id).orElseThrow(() -> new ReservationNotFoundException(id));
     }
 
     @ApiOperation(value = "Get reservations by Worker Id", response = List.class)
@@ -106,18 +105,10 @@ public class ReservationController {
 
 
     @ApiOperation(value = "Delete a reservation by its Id", response = List.class)
-    @DeleteMapping("/Reservation/{id}")
-    @Transactional(rollbackFor = ReservationNotFoundException.class)
-    public Reservation deleteReservation(@PathVariable Long id) throws ReservationNotFoundException {
-        Reservation deleted = repository.findByID(id);
-        if(deleted == null){
-            throw new ReservationNotFoundException(id);
-        }
-
-    public void setRepository(ReservationRepository repository) {
-        this.repository = repository;
+    @DeleteMapping("/reservation/{id}")
+    public void deleteReservation(@PathVariable Long id) {
+        repository.deleteById(id);
     }
-    
-    
+
 
 }
