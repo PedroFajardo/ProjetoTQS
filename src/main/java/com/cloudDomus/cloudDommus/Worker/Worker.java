@@ -1,8 +1,8 @@
 package com.cloudDomus.cloudDommus.Worker;
 
 import com.cloudDomus.cloudDommus.Reservation.Reservation;
-import com.cloudDomus.cloudDommus.Reservation.Reservation;
 import com.cloudDomus.cloudDommus.User.User;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -25,9 +25,9 @@ public class Worker extends User{
     @ApiModelProperty(notes = "Worker review scores")
     private int[] reviewScores;
 
-    @Column
-    @OneToMany(mappedBy = "worker", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "worker", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     @ApiModelProperty(notes = "Worker Reservation List")
+    @JsonManagedReference
     private List<Reservation> reservations = new ArrayList<>();
 
     public Worker(String firstName, String lastName, String email, String username, String password, String address, int phone, String[] comments, int[] reviewScores, List<Reservation> reservations) {
@@ -73,7 +73,7 @@ public class Worker extends User{
         return "Worker{" +
                 "comments=" + Arrays.toString(comments) +
                 ", reviewScores=" + Arrays.toString(reviewScores) +
-                ", reservations=" + reservations +
+                ", reservations=" + reservations.toString() +
                 "} " + super.toString();
     }
 }

@@ -76,38 +76,4 @@ public class UserController {
         return response.toString();
     }
 
-    public UserRepository getRepository() {
-        return repository;
-    }
-
-    public void setRepository(UserRepository repository) {
-        this.repository = repository;
-    }
-
-    public ClientRepository getClientRepository() {
-        return clientRepository;
-    }
-
-    public void setClientRepository(ClientRepository clientRepository) {
-        this.clientRepository = clientRepository;
-    }
-
-    public WorkerRepository getWorkerRepository() {
-        return workerRepository;
-    }
-
-    public void setWorkerRepository(WorkerRepository workerRepository) {
-        this.workerRepository = workerRepository;
-    }
-
-    public ManagerRepository getManagerRepository() {
-        return managerRepository;
-    }
-
-    public void setManagerRepository(ManagerRepository managerRepository) {
-        this.managerRepository = managerRepository;
-    }
-    
-    
-
 }

@@ -1,11 +1,13 @@
 package com.cloudDomus.cloudDommus.Service;
 
 import com.cloudDomus.cloudDommus.Reservation.Reservation;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -27,7 +29,7 @@ public class Service {
     @Column
     @ManyToMany
     @ApiModelProperty(notes = "Service Reservation")
-    List<Reservation> reservation;
+    List<Reservation> reservation = new ArrayList<>();
 
     public Service(String type, String description) {
         this.type = type;

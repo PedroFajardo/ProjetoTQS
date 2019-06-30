@@ -43,7 +43,6 @@ public class User {
     @ApiModelProperty(notes = "User Phone")
     private int phone;
 
-
     public User(String firstName, String lastName, String email, String username, String password, String address, int phone) {
         this.firstName = firstName;
         this.lastName = lastName;

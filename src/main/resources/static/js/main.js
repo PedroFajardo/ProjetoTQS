@@ -98,5 +98,5 @@ function logout(){
 
     sessionStorage.clear();
 
-    window.location.href = "index.html";
+    window.location.href = "location:8080/index.html";
 }

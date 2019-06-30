@@ -2,6 +2,9 @@ package com.cloudDomus.cloudDommus.Reservation;
 
 import com.cloudDomus.cloudDommus.Service.Service;
 import com.cloudDomus.cloudDommus.Worker.Worker;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -22,7 +25,7 @@ public class Reservation {
     @Column
     @ManyToMany
     @ApiModelProperty(notes = "Reservation Service")
-    private List<Service> service;
+    private List<Service> service = new ArrayList<>();
 
     @Column
     @ApiModelProperty(notes = "Reservation Description")
@@ -44,8 +47,9 @@ public class Reservation {
     @ApiModelProperty(notes = "Reservation Client Address")
     private String address;
 
-    @ManyToOne
-    @JoinColumn(name = "worker_id")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn
+    @JsonBackReference
     private Worker worker;
 
     public Reservation(List<Service> service, String description, Date startHour, Date endHour, Double priceHour, String address) {
@@ -125,6 +129,7 @@ public class Reservation {
         this.address = address;
     }
 
+
     public Worker getWorker() {
         return worker;
     }
@@ -143,7 +148,6 @@ public class Reservation {
                 ", endHour=" + endHour +
                 ", priceHour=" + priceHour +
                 ", address='" + address + '\'' +
-                ", worker=" + worker +
                 '}';
     }
 }

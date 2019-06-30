@@ -22,6 +22,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/reservations")
@@ -56,18 +57,13 @@ public class ReservationController {
         JSONObject param = new JSONObject(params);
 
         JSONArray services = param.getJSONArray("service");
-        log.info(services.toString());
         String description = (String) param.get("description");
         DateFormat dateFormat = new SimpleDateFormat("HH:mm");
         Date startHour = dateFormat.parse(param.get("startHour").toString());
         Date endHour = dateFormat.parse(param.get("endHour").toString());
-        log.info(startHour.toString());
-        log.info(endHour.toString());
 
         double priceHour = Double.parseDouble(param.get("priceHour").toString());
-        log.info(String.valueOf(priceHour));
         String user_id = param.get("user_id").toString();
-        log.info(user_id);
 
         Reservation reservation = new Reservation(description, startHour, endHour, priceHour);
 
@@ -79,7 +75,6 @@ public class ReservationController {
 
         reservation.setWorker(worker);
 
-        log.info(reservation.toString());
         return repository.save(reservation);
 
     }

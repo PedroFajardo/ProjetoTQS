@@ -42,7 +42,8 @@ function validateReservationForm(){
         })
         .then( data=>{return data.json()})
         .then(res=>{
-            window.location.href = "myReservations.html";
+            console.log(res)
+            //window.location.href = "myReservations.html";
         })
 }
 
@@ -60,14 +61,21 @@ function fetchMyReservation(){
         })
         .then( data=>{return data.json()})
         .then(res=>{
-            console.log(res)
-            var postDiv = document.getElementById("myReservations")
+            console.log(res);
+            if(res.length != 0){
+                var noReservations = document.getElementById("noReservations");
+                noReservations.style.display = "none";
+            }
+
+            var postDiv = document.getElementById("myReservations");
+            
             for(var i = 0; i < res.length; i++){
                 var reservation = res[i]
                 var row = document.createElement('div')
                 row.classList.add("row");
                 row.classList.add("mb-3");
                 row.classList.add("reservation");
+
                 var servicesString = ''
                 for( var j = 0; j < reservation.service.length; j++){
                     if(j == reservation.service.length -1)
@@ -76,11 +84,14 @@ function fetchMyReservation(){
                         servicesString += reservation.service[j].type + ", ";
                 }
 
+                var startHour = new Date(reservation.startHour)
+                var endHour = new Date(reservation.endHour)
+
                 row.innerHTML = '<div class="row" id="'+ reservation.id +'"height="300">\
                                     <div class="col-md-5 col-sm-5 col-xs-5">\
                                         <div class="m-3">\
                                             <h5><strong>Service:</strong> '+ servicesString +'</h5>\
-                                            <h5><strong>Availability:</strong> '+ reservation.startHour +'-'+ reservation.endHour+ ' h</h5>\
+                                            <h5><strong>Availability:</strong> '+ startHour.getHours() +':'+(startHour.getMinutes()<10?'0':'') + startHour.getMinutes() +'-'+ endHour.getHours() +':'+(endHour.getMinutes()<10?'0':'') +endHour.getMinutes()+ ' h</h5>\
                                             <h5><strong>Price (per hour):</strong> '+ reservation.priceHour +' euros</h5>\
                                         </div>\
                                     </div>\
@@ -88,14 +99,31 @@ function fetchMyReservation(){
                                         <div class="m-3">\
                                             <h5><strong>Description:</strong>'+reservation.description+'</h5>\
                                             <hr>\
-                                            <button class="btn btn-danger">Delete Service</button>\
+                                            <button type="button" class="btn btn-danger" onclick="deleteReservation('+reservation.id+')">Delete Service</button>\
                                         </div>\
                                     </div>\
                                 </div>'
                 postDiv.appendChild(row);
             }
         })
+}
 
+function deleteReservation(id){
 
+    fetch("http://localhost:8080/api/reservations/reservation/"+id,
+        {
+            mode: 'cors',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "DELETE",
+            body: null
+        })
+        .then( data=>{return data.json()})
+        .then(res=>{
+            console.log(res);
+            window.location.reload();
+        })
 
 }
