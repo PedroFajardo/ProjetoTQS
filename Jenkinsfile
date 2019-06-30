@@ -3,17 +3,22 @@ pipeline {
   tools {
       jdk 'jdk8'
       maven 'mvn'
-
+  }
   stages {
-      stage('test java installation') {
+      stage('Install') {
           steps {
-              sh 'java -version'
-
-
-      stage('test maven installation') {
-          steps {
-              sh 'mvn -version'
-
-
-
+              sh "mvn clean install"
+              sh "mvn -U clean test cobertura:cobertura -Dcobertura.report.format=xml"
+          }
+          post {
+              always {
+                  junit '**/target/*-reports/TEST-*.xml'
+                  step([$class: 'CoberturaPublisher', coberturaReportFile: 'target/site/cobertura/coverage.xml'])
+              }
+          }
+       }
+       
+        
+ 
+    }
 }

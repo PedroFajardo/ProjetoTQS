@@ -48,9 +48,6 @@ public class UserController {
         String email = (String) param.get("email");
         String password = (String) param.get("password");
 
-        log.info(email);
-        log.info(password);
-
         JSONObject response = new JSONObject();
 
 
@@ -62,13 +59,13 @@ public class UserController {
         }
         else if(managerRepository.findByEmail(email) != null){
             Manager user = managerRepository.findByEmail(email);
-            if (user.getPassword() == password)
+            if (user.getPassword().equals(password))
                 response.put("userType", "manager");
                 response.put("user_id", user.getId());
         }
         else if(workerRepository.findByEmail(email) != null){
             Worker user = workerRepository.findByEmail(email);
-            if (user.getPassword() == password)
+            if (user.getPassword().equals(password))
                 response.put("userType", "worker");
                 response.put("user_id", user.getId());
         }

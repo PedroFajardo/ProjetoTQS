@@ -1,6 +1,7 @@
 package com.cloudDomus.cloudDommus.Worker;
 
-import com.cloudDomus.cloudDommus.Service.Service;
+import com.cloudDomus.cloudDommus.Reservation.Reservation;
+import com.cloudDomus.cloudDommus.Reservation.Reservation;
 import com.cloudDomus.cloudDommus.User.User;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -26,14 +27,14 @@ public class Worker extends User{
 
     @Column
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @ApiModelProperty(notes = "Worker Service List")
-    private List<Service> services = new ArrayList<>();
+    @ApiModelProperty(notes = "Worker Reservation List")
+    private List<Reservation> reservations = new ArrayList<>();
 
-    public Worker(String firstName, String lastName, String email, String username, String password, String address, int phone, String[] comments, int[] reviewScores, List<Service> services) {
+    public Worker(String firstName, String lastName, String email, String username, String password, String address, int phone, String[] comments, int[] reviewScores, List<Reservation> reservations) {
         super(firstName, lastName, email, username, password, address, phone);
         this.comments = comments;
         this.reviewScores = reviewScores;
-        this.services = services;
+        this.reservations = reservations;
     }
 
     public Worker(){}
@@ -55,12 +56,16 @@ public class Worker extends User{
         this.reviewScores = reviewScores;
     }
 
-    public List<Service> getServices() {
-        return services;
+    public void addReservation(Reservation reservation){
+        this.reservations.add(reservation);
     }
 
-    public void setServices(List<Service> services) {
-        this.services = services;
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
 
     @Override
@@ -68,7 +73,7 @@ public class Worker extends User{
         return "Worker{" +
                 "comments=" + Arrays.toString(comments) +
                 ", reviewScores=" + Arrays.toString(reviewScores) +
-                ", services=" + services +
+                ", reservations=" + reservations +
                 "} " + super.toString();
     }
 }
