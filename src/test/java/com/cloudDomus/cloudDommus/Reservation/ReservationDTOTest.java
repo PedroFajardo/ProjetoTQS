@@ -5,7 +5,10 @@
  */
 package com.cloudDomus.cloudDommus.Reservation;
 
+import com.cloudDomus.cloudDommus.Service.Service;
+import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -16,17 +19,13 @@ public class ReservationDTOTest {
     public ReservationDTOTest() {
     }
     
-    public static ReservationDTO createDTO(Long id, Date startHour, Date endHour, String address) {
+    public static ReservationDTO createDTO(Long id) throws ParseException {
         ReservationDTO dto = new ReservationDTO();
-
         dto.setId(id);
-        dto.setStartHour(startHour);
-        dto.setEndHour(endHour);
-        dto.setAddress(address);
         return dto;
     }
 
-    public static Reservation createModelObjectReservation(Long id, Date startHour, Date endHour, String address) {
+    public static Reservation createModelObjectReservation(Long id) {
         Reservation model = new Reservation();
         model.setId(id);
         return model;

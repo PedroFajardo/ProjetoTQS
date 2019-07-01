@@ -10,4 +10,8 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 
     List<Reservation> getByClient(Client client);
 
+    List<Reservation> getByWorker(Worker worker);
+
+    Reservation getById(Long id);
+
 }

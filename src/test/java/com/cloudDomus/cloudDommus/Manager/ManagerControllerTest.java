@@ -65,7 +65,7 @@ public class ManagerControllerTest {
     @Test
     public void testGetManagerByID() {
         Manager mn = ManagerDTOTest.createModelObjectManager(USER_ID, null, null);
-        when(managerRepositoryMock.findByID(USER_ID)).thenReturn(mn);
+        when(managerRepositoryMock.getById(USER_ID)).thenReturn(mn);
         Manager result = managerController.getManagerByID(USER_ID) ;
         assertEquals(mn, result);
     }
@@ -77,9 +77,9 @@ public class ManagerControllerTest {
     public void testDeleteManager() throws ManagerNotFoundException{
         Manager expected = ManagerDTOTest.createModelObjectManager(null, null, null); ;
         Manager manager = ManagerDTOTest.createModelObjectManager(USER_ID, null, null);
-        when(managerRepositoryMock.deleteByID(USER_ID)).thenReturn(manager);
+        when(managerRepositoryMock.getById(USER_ID)).thenReturn(manager);
         Manager result = managerController.deleteManager(USER_ID);
-        verify(managerRepositoryMock, times(1)).deleteByID(USER_ID);
+        verify(managerRepositoryMock, times(1)).getById(USER_ID);
         verify(managerRepositoryMock, times(1)).deleteById(USER_ID);
         verifyNoMoreInteractions(managerRepositoryMock);
         assertEquals(expected, result);
@@ -87,9 +87,9 @@ public class ManagerControllerTest {
     
     @Test(expected = ManagerNotFoundException.class)
     public void deleteWhenManagerIsNotFound() throws ManagerNotFoundException {
-        when(managerRepositoryMock.deleteByID(USER_ID)).thenReturn(null);
+        when(managerRepositoryMock.getById(USER_ID)).thenReturn(null);
         managerController.deleteManager(USER_ID);
-        verify(managerRepositoryMock, times(1)).deleteByID(USER_ID);
+        verify(managerRepositoryMock, times(1)).getById(USER_ID);
         verifyNoMoreInteractions(managerRepositoryMock);
     }
     

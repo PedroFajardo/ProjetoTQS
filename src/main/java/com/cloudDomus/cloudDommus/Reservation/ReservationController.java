@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
@@ -84,11 +85,10 @@ public class ReservationController {
 
     }
 
-    // Single item
     @ApiOperation(value = "Get reservation by Id", response = List.class)
     @GetMapping("/reservation/{id}")
     public Reservation getReservationByID(@PathVariable Long id) {
-        return repository.findById(id).orElseThrow(() -> new ReservationNotFoundException(id));
+        return repository.getById(id);
     }
 
     @ApiOperation(value = "Get reservations by Worker Id", response = List.class)
@@ -110,9 +110,55 @@ public class ReservationController {
 
     @ApiOperation(value = "Delete a reservation by its Id", response = List.class)
     @DeleteMapping("/reservation/{id}")
-    public void deleteReservation(@PathVariable Long id) {
+    @Transactional(rollbackFor = ReservationNotFoundException.class)
+    public Reservation deleteReservation(@PathVariable Long id) {
+        Reservation deleted = repository.getById(id);
+        if(deleted == null){
+            throw new ReservationNotFoundException(id);
+        }
         repository.deleteById(id);
+        deleted.setId(null);
+        return deleted;
     }
 
+    public ReservationRepository getRepository() {
+        return repository;
+    }
+
+    public void setRepository(ReservationRepository repository) {
+        this.repository = repository;
+    }
+
+    public ServiceController getServiceController() {
+        return serviceController;
+    }
+
+    public void setServiceController(ServiceController serviceController) {
+        this.serviceController = serviceController;
+    }
+
+    public WorkerController getWorkerController() {
+        return workerController;
+    }
+
+    public void setWorkerController(WorkerController workerController) {
+        this.workerController = workerController;
+    }
+
+    public UserController getUserController() {
+        return userController;
+    }
+
+    public void setUserController(UserController userController) {
+        this.userController = userController;
+    }
+
+    public ClientController getClientController() {
+        return clientController;
+    }
+
+    public void setClientController(ClientController clientController) {
+        this.clientController = clientController;
+    }
 
 }

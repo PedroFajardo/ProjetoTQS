@@ -5,6 +5,10 @@
  */
 package com.cloudDomus.cloudDommus.User;
 
+import com.cloudDomus.cloudDommus.Client.Client;
+import com.cloudDomus.cloudDommus.Manager.Manager;
+import com.cloudDomus.cloudDommus.Worker.Worker;
+
 
 /**
  *
@@ -13,23 +17,44 @@ package com.cloudDomus.cloudDommus.User;
 public class UserDTOTest {
     
     
-    public static UserDTO createDTO(Long id, String type, String firstName, String lastName, String email, String username, String password, String address, int phone) {
+    public static UserDTO createDTO(Long id, String type, String email, String password) {
         UserDTO dto = new UserDTO();
         dto.setId(id);
-        dto.setFirstName(firstName);
-        dto.setLastName(lastName);
         dto.setEmail(email);
         dto.setPassword(password);
-        dto.setAddress(address);
-        dto.setPhone(phone);
-        dto.setUsername(username);
         dto.setType(type);
         return dto;
     }
     
-    public static User createModelObjectUSer(Long id, String firstName, String lastName, String email, String username, String password, String address, int phone) {
+    public static User createModelObjectUser(Long id, String type, String email, String password) {
         User model = new User();
         model.setId(id);
+        model.setEmail(email);
+        model.setPassword(password);
+        return model;
+    }
+    
+    public static Client createModelObjectClient(Long id, String type, String email, String password) {
+        Client model = new Client();
+        model.setId(id);
+        model.setEmail(email);
+        model.setPassword(password);
+        return model;
+    }
+    
+    public static Worker createModelObjectWorker(Long id, String type, String email, String password) {
+        Worker model = new Worker();
+        model.setId(id);
+        model.setEmail(email);
+        model.setPassword(password);
+        return model;
+    }
+    
+    public static Manager createModelObjectManager(Long id, String type, String email, String password) {
+        Manager model = new Manager();
+        model.setId(id);
+        model.setEmail(email);
+        model.setPassword(password);
         return model;
     }
 }

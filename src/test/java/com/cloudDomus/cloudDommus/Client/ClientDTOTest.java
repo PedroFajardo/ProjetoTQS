@@ -23,9 +23,7 @@ public class ClientDTOTest{
 
     public static Client createModelObjectClient(Long id, String firstName, String lastName) {
         Client model = new Client();
-
         model.setId(id);
-
         return model;
     }
     

@@ -65,7 +65,7 @@ public class ServiceControllerTest {
     @Test
     public void testGetServiceByID() {
         Service service = ServiceDTOTest.createModelObjectService(ID, null, null);
-        when(serviceRepositoryMock.findByID(ID)).thenReturn(service);
+        when(serviceRepositoryMock.getById(ID)).thenReturn(service);
         Service result = serviceController.getServiceByID(ID) ;
         assertEquals(service, result);
     }
@@ -77,9 +77,9 @@ public class ServiceControllerTest {
     public void testDeleteService() throws ServiceNotFoundException{
         Service expected = ServiceDTOTest.createModelObjectService(null, null, null); ;
         Service service = ServiceDTOTest.createModelObjectService(ID, null, null);
-        when(serviceRepositoryMock.findByID(ID)).thenReturn(service);
+        when(serviceRepositoryMock.getById(ID)).thenReturn(service);
         Service result = serviceController.deleteService(ID);
-        verify(serviceRepositoryMock, times(1)).findByID(ID);
+        verify(serviceRepositoryMock, times(1)).getById(ID);
         verify(serviceRepositoryMock, times(1)).deleteById(ID);
         verifyNoMoreInteractions(serviceRepositoryMock);
         assertEquals(expected, result);
@@ -87,9 +87,9 @@ public class ServiceControllerTest {
     
     @Test(expected = ServiceNotFoundException.class)
     public void deleteWhenServiceIsNotFound() throws ServiceNotFoundException {
-        when(serviceRepositoryMock.findByID(ID)).thenReturn(null);
+        when(serviceRepositoryMock.getById(ID)).thenReturn(null);
         serviceController.deleteService(ID);
-        verify(serviceRepositoryMock, times(1)).findByID(ID);
+        verify(serviceRepositoryMock, times(1)).getById(ID);
         verifyNoMoreInteractions(serviceRepositoryMock);
     }
     

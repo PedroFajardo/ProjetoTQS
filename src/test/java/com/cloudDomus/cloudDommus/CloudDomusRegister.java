@@ -6,10 +6,11 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 import org.openqa.selenium.*;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class UntitledTestCase {
+public class CloudDomusRegister {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -17,51 +18,47 @@ public class UntitledTestCase {
 
   @Before
   public void setUp() throws Exception {
-    System.setProperty("webdriver.chrome.driver", "/home/pedrofajardo/Downloads/chromedriver_linux64 (1)/chromedriver");
+    System.setProperty("webdriver.chrome.driver", "/home/tqs/TQS/chromedriver");
     driver = new ChromeDriver();
     baseUrl = "https://www.katalon.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
   @Test
-  public void testUntitledTestCase() throws Exception {
+  public void testCloudDomus() throws Exception {
     driver.get("http://localhost:8080/");
     driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Login'])[1]/following::button[1]")).click();
+    driver.findElement(By.id("userType")).click();
     new Select(driver.findElement(By.id("userType"))).selectByVisibleText("Worker");
     driver.findElement(By.id("userType")).click();
     driver.findElement(By.id("InputFirst")).click();
     driver.findElement(By.id("InputFirst")).clear();
-    driver.findElement(By.id("InputFirst")).sendKeys("hello");
+    driver.findElement(By.id("InputFirst")).sendKeys("Maria");
     driver.findElement(By.id("InputLast")).clear();
-    driver.findElement(By.id("InputLast")).sendKeys("guys");
+    driver.findElement(By.id("InputLast")).sendKeys("dos Anjos");
+    driver.findElement(By.id("InputEmail")).click();
     driver.findElement(By.id("InputEmail")).clear();
-    driver.findElement(By.id("InputEmail")).sendKeys("hello@mail.com");
+    driver.findElement(By.id("InputEmail")).sendKeys("mariadosanjos@mail.com");
+    driver.findElement(By.id("InputPhone")).click();
     driver.findElement(By.id("InputPhone")).clear();
-    driver.findElement(By.id("InputPhone")).sendKeys("987654321");
-    driver.findElement(By.id("InputBirthday")).click();
-    driver.findElement(By.id("InputBirthday")).click();
-    driver.findElement(By.id("InputBirthday")).click();
+    driver.findElement(By.id("InputPhone")).sendKeys("934567453");
     driver.findElement(By.id("InputBirthday")).click();
     driver.findElement(By.id("InputBirthday")).clear();
-    driver.findElement(By.id("InputBirthday")).sendKeys("2019-07-17");
-    driver.findElement(By.id("InputAddress")).click();
-    driver.findElement(By.id("InputBirthday")).click();
+    driver.findElement(By.id("InputBirthday")).sendKeys("0001-01-01");
     driver.findElement(By.id("InputBirthday")).clear();
-    driver.findElement(By.id("InputBirthday")).sendKeys("0001-07-17");
+    driver.findElement(By.id("InputBirthday")).sendKeys("0019-01-01");
     driver.findElement(By.id("InputBirthday")).clear();
-    driver.findElement(By.id("InputBirthday")).sendKeys("0019-07-17");
+    driver.findElement(By.id("InputBirthday")).sendKeys("0198-01-01");
     driver.findElement(By.id("InputBirthday")).clear();
-    driver.findElement(By.id("InputBirthday")).sendKeys("0199-07-17");
-    driver.findElement(By.id("InputBirthday")).clear();
-    driver.findElement(By.id("InputBirthday")).sendKeys("1990-07-17");
+    driver.findElement(By.id("InputBirthday")).sendKeys("1980-01-01");
     driver.findElement(By.id("InputAddress")).click();
     driver.findElement(By.id("InputAddress")).clear();
-    driver.findElement(By.id("InputAddress")).sendKeys("hello guys");
+    driver.findElement(By.id("InputAddress")).sendKeys("Rua da Fonte, nº5");
     driver.findElement(By.id("InputPassword")).click();
     driver.findElement(By.id("InputPassword")).clear();
-    driver.findElement(By.id("InputPassword")).sendKeys("hello");
+    driver.findElement(By.id("InputPassword")).sendKeys("mariadosanjos");
     driver.findElement(By.id("InputPasswordConfirm")).clear();
-    driver.findElement(By.id("InputPasswordConfirm")).sendKeys("hello");
+    driver.findElement(By.id("InputPasswordConfirm")).sendKeys("mariadosanjos");
     driver.findElement(By.id("Check")).click();
     driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Check me out'])[2]/following::button[1]")).click();
   }

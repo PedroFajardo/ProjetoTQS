@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
@@ -51,15 +52,21 @@ public class ClientController {
     @GetMapping("/client/{id}")
     public Client getClientByID(@PathVariable Long id) {
 
-        return repository.findById(id).orElseThrow(() -> new ClientNotFoundException(id));
+        return repository.getById(id);
     }
 
     @ApiOperation(value = "Delete a work by its Id", response = List.class)
     @DeleteMapping("/Client/{id}")
-    public void deleteClient(@PathVariable Long id) {
+    @Transactional(rollbackFor = ClientNotFoundException.class)
+    public Client deleteClient(@PathVariable Long id)throws ClientNotFoundException{
+        Client deleted = repository.getById(id);
+        if(deleted == null){
+            throw new ClientNotFoundException(id);
+        }
         repository.deleteById(id);
+        deleted.setId(null);
+        return deleted;
     }
-
     @ApiOperation(value = "Add reservation to client", response = List.class)
     @PostMapping("/reservation/{id}")
     public Reservation putReservation(@PathVariable Long id, @RequestBody String params) throws JSONException {
@@ -75,6 +82,22 @@ public class ClientController {
         reservation.setClient(client);
 
         return reservationRepository.save(reservation);
+    }
+
+    public ClientRepository getRepository() {
+        return repository;
+    }
+
+    public void setRepository(ClientRepository repository) {
+        this.repository = repository;
+    }
+
+    public ReservationController getReservationController() {
+        return reservationController;
+    }
+
+    public void setReservationController(ReservationController reservationController) {
+        this.reservationController = reservationController;
     }
 
 }

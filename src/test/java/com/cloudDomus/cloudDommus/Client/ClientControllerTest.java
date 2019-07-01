@@ -5,13 +5,12 @@
  */
 package com.cloudDomus.cloudDommus.Client;
 
+import com.cloudDomus.cloudDommus.Reservation.ReservationController;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.BeforeClass;
 import static org.mockito.Mockito.*;
 
 
@@ -26,24 +25,21 @@ public class ClientControllerTest {
     
     private ClientController clientController;
     private ClientRepository clientRepositoryMock;
+    private ReservationController reservationController;
     
     public ClientControllerTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
     
     @Before
     public void setUp() {
         clientController = new ClientController();
         clientRepositoryMock = mock(ClientRepository.class);
+        reservationController = mock(ReservationController.class);
         clientController.setRepository(clientRepositoryMock);
+        clientController.setReservationController(reservationController);
     }
+
 
     /**
      * Test of all method, of class ClientController.
@@ -80,12 +76,11 @@ public class ClientControllerTest {
     public void testDeleteClient() throws ClientNotFoundException{
         Client expected = ClientDTOTest.createModelObjectClient(null, null, null);
         Client client = ClientDTOTest.createModelObjectClient(USER_ID, null, null);
-        when(clientRepositoryMock.deleteByID(USER_ID)).thenReturn(client);
-        Client result = clientController.deleteClient(USER_ID);
-        verify(clientRepositoryMock, times(1)).deleteByID(USER_ID);
+        when(clientRepositoryMock.getById(USER_ID)).thenReturn(client);
+        Client result = clientController.deleteClient(client.getId());
+        verify(clientRepositoryMock, times(1)).getById(USER_ID);
         verify(clientRepositoryMock, times(1)).deleteById(USER_ID);
         verifyNoMoreInteractions(clientRepositoryMock);
-        System.out.println(result);
         assertEquals(expected, result);
     }
 
@@ -95,16 +90,17 @@ public class ClientControllerTest {
     @Test
     public void testGetClientByID() {
         Client client = ClientDTOTest.createModelObjectClient(USER_ID, null, null);
-        when(clientRepositoryMock.findByID(USER_ID)).thenReturn(client);
+        when(clientRepositoryMock.getById(USER_ID)).thenReturn(client);
         Client result = clientController.getClientByID(USER_ID);
         assertEquals(client, result);
     }
     
     @Test(expected = ClientNotFoundException.class)
     public void deleteWhenClientIsNotFound() throws ClientNotFoundException {
-        when(clientRepositoryMock.deleteByID(USER_ID)).thenReturn(null);
+        when(clientRepositoryMock.getById(USER_ID)).thenReturn(null);
         clientController.deleteClient(USER_ID);
-        verify(clientRepositoryMock, times(1)).deleteByID(USER_ID);
+        verify(clientRepositoryMock, times(1)).getById(USER_ID);
         verifyNoMoreInteractions(clientRepositoryMock);
     } 
+    
 }

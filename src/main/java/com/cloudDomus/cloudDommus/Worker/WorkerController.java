@@ -3,6 +3,7 @@ package com.cloudDomus.cloudDommus.Worker;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,13 +34,27 @@ public class WorkerController {
     @GetMapping("/worker/{id}")
     public Worker getWorkerByID(@PathVariable Long id) {
 
-        return repository.findById(id).orElseThrow(() -> new WorkerNotFoundException(id));
+        return repository.getById(id);
     }
 
     @ApiOperation(value = "Delete a worker by its Id", response = List.class)
     @DeleteMapping("/Worker/{id}")
-    public void deleteWorker(@PathVariable Long id) {
+    @Transactional(rollbackFor = WorkerNotFoundException.class)
+    public Worker deleteWorker(@PathVariable Long id) throws WorkerNotFoundException {
+        Worker deleted = repository.getById(id);
+        if (deleted==null){
+            throw new WorkerNotFoundException(id);
+        }
         repository.deleteById(id);
+        deleted.setId(null);
+        return deleted;
     }
 
+    public WorkerRepository getRepository() {
+        return repository;
+    }
+
+    public void setRepository(WorkerRepository repository) {
+        this.repository = repository;
+    }
 }

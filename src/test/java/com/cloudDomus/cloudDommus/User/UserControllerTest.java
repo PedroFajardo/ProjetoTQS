@@ -6,12 +6,19 @@
 package com.cloudDomus.cloudDommus.User;
 
 
+import com.cloudDomus.cloudDommus.Client.Client;
 import com.cloudDomus.cloudDommus.Client.ClientRepository;
+import com.cloudDomus.cloudDommus.Manager.Manager;
 import com.cloudDomus.cloudDommus.Manager.ManagerRepository;
+import com.cloudDomus.cloudDommus.Worker.Worker;
 import com.cloudDomus.cloudDommus.Worker.WorkerRepository;
+import java.util.*;
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.BeforeClass;
 import static org.mockito.Mockito.*;
 
 /**
@@ -20,9 +27,8 @@ import static org.mockito.Mockito.*;
  */
 public class UserControllerTest {
     
-    private final String EMAIL = "email";
-    private final String PASSWORD = "PASSWORD";
     private static final Long USER_ID = Long.valueOf(5);
+    
     private UserController userController;
     private UserRepository userRepositoryMock;
     private ClientRepository clientRepositoryMock;
@@ -30,6 +36,14 @@ public class UserControllerTest {
     private WorkerRepository workerRepositoryMock;
     
     public UserControllerTest() {
+    }
+
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception {
     }
    
     @Before
@@ -44,16 +58,27 @@ public class UserControllerTest {
         userController.setManagerRepository(managerRepositoryMock);
         userController.setWorkerRepository(workerRepositoryMock);
     }
-    
+
+    @After
+    public void tearDown() throws Exception {
+    }
 
     /**
      * Test of loginValidation method, of class UserController.
      */
-    @Test
+    /*@Test
     public void testLoginValidation() throws Exception {
-        UserDTO create = UserDTOTest.createDTO(USER_ID, null, null, null, EMAIL, null, PASSWORD, null, 0);
-        User expected = UserDTOTest.createModelObjectUSer(USER_ID, null, null, EMAIL, null, PASSWORD, null, 0);
-        when(userRepositoryMock.findByID(USER_ID)).thenReturn(expected);
-    }
+        String params ="";
+        String expected="";
+        String result = "";
+        Worker worker = UserDTOTest.createModelObjectWorker(USER_ID, "worker", "email@worker.pt", "ola");
+        System.out.println(worker.getEmail());
+        workerRepositoryMock.save(worker);
+        System.out.println(workerRepositoryMock.findByEmail(worker.getEmail()));
+        params = "{ 'email':'email@worker.pt', 'password': 'ola', 'userType': 'worker', 'user_id': "+USER_ID+"}";
+        expected = "{'userType':'worker', 'user_id': "+USER_ID+"}";
+        result=userController.loginValidation(params);
+        assertEquals(expected,result);
+    }*/
     
 }
