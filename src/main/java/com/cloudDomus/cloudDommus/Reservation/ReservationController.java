@@ -104,11 +104,7 @@ public class ReservationController {
     @GetMapping("/reservation/client/{id}")
     public List<Reservation> getReservationsByClientID(@PathVariable Long id) {
 
-        Client client = clientController.getClientByID(id);
-
-        log.info(client.getReservationList().toString());
-
-        return client.getReservationList();
+        return repository.getByClient(clientController.getClientByID(id));
     }
 
 

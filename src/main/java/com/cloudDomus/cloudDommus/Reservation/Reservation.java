@@ -3,14 +3,13 @@ package com.cloudDomus.cloudDommus.Reservation;
 import com.cloudDomus.cloudDommus.Client.Client;
 import com.cloudDomus.cloudDommus.Service.Service;
 import com.cloudDomus.cloudDommus.Worker.Worker;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,7 +17,9 @@ import java.util.List;
 @Data
 @Entity
 @ApiModel(description = "All details about a Reservation.")
-public class Reservation {
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Reservation implements Serializable {
 
     @ApiModelProperty(notes = "The database generated Reservation ID")
     private @Id @GeneratedValue Long id;
@@ -49,13 +50,11 @@ public class Reservation {
     private String address;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn
-    @JsonBackReference
+    @JoinColumn(name = "workerId")
     private Worker worker;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn
-    @JsonBackReference
+    @JoinColumn(name = "clientId")
     private Client client;
 
     public Reservation(List<Service> service, String description, Date startHour, Date endHour, Double priceHour, String address) {

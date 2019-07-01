@@ -1,19 +1,22 @@
 package com.cloudDomus.cloudDommus.Service;
 
 import com.cloudDomus.cloudDommus.Reservation.Reservation;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Entity
 @ApiModel(description = "All details about a Service.")
-public class Service {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Service implements Serializable {
 
     @ApiModelProperty(notes = "The database generated Service ID")
     private @Id @GeneratedValue Long id;

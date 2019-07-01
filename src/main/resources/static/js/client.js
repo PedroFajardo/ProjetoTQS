@@ -48,8 +48,8 @@ function fetchReservation(){
                                         </div>\
                                         <div class="col-md-7 col-sm-7 col-xs-7">\
                                             <div class="m-3">\
-                                                <h5><strong>Description:</strong>'+reservation.description+'</h5>\
-                                                <h5><strong>User:</strong>'+reservation.description+'</h5>\
+                                                <h5><strong>Description:</strong> '+reservation.description+'</h5>\
+                                                <h5><strong>User:</strong> '+reservation.worker.firstName+' '+reservation.worker.lastName+'</h5>\
                                                 <hr>\
                                                 <button type="button" class="btn btn-danger" onclick="requestReservation('+reservation.id+')">Request Service</button>\
                                             </div>\
@@ -61,7 +61,7 @@ function fetchReservation(){
 }
 
 function fetchRequestedReservation(){
-    const url = "http://localhost:8080/api/reservations/reservation/client"+sessionStorage.getItem("user_id")
+    const url = "http://localhost:8080/api/reservations/reservation/client/"+sessionStorage.getItem("user_id")
     fetch(url,
         {
             mode: 'cors',
@@ -74,13 +74,13 @@ function fetchRequestedReservation(){
         })
         .then( data=>{return data.json()})
         .then(res=>{
-                console.log(res);
+            console.log(res);
             if(res.length != 0){
                 var noReservations = document.getElementById("noReservations");
                 noReservations.style.display = "none";
             }
 
-            var postDiv = document.getElementById("reservations");
+            var postDiv = document.getElementById("reservationsRequests");
 
             for(var i = 0; i < res.length; i++){
                 var reservation = res[i]
@@ -110,10 +110,8 @@ function fetchRequestedReservation(){
                                                 </div>\
                                                 <div class="col-md-7 col-sm-7 col-xs-7">\
                                                     <div class="m-3">\
-                                                        <h5><strong>Description:</strong>'+reservation.description+'</h5>\
-                                                        <h5><strong>User:</strong>'+reservation.description+'</h5>\
-                                                        <hr>\
-                                                        <button type="button" class="btn btn-danger" onclick="requestReservation('+reservation.id+')">Request Service</button>\
+                                                        <h5><strong>Description:</strong> '+reservation.description+'</h5>\
+                                                        <h5><strong>User:</strong> '+reservation.worker.firstName+' '+reservation.worker.lastName+'</h5>\
                                                     </div>\
                                                 </div>\
                                             </div>'
@@ -141,4 +139,29 @@ function requestReservation(id){
         })
 
 }
+
+function loadProfile(){
+
+    fetch("http://localhost:8080/api/clients/client/"+sessionStorage.getItem("user_id"),
+        {
+            mode: 'cors',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "GET",
+            body: null
+        })
+        .then( data=>{return data.json()})
+        .then(res=>{
+            console.log(res);
+            document.getElementById("first_name").value = res.firstName;
+            document.getElementById("last_name").value = res.lastName;
+            document.getElementById("email").value = res.email;
+            document.getElementById("phone").value = res.phone;
+            document.getElementById("address").value = res.address;
+        })
+
+}
+
 

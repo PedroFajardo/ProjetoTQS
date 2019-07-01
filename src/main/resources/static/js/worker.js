@@ -127,3 +127,27 @@ function deleteReservation(id){
         })
 
 }
+
+function loadProfile(){
+
+    fetch("http://localhost:8080/api/workers/worker/"+sessionStorage.getItem("user_id"),
+        {
+            mode: 'cors',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "GET",
+            body: null
+        })
+        .then( data=>{return data.json()})
+        .then(res=>{
+            console.log(res);
+            document.getElementById("first_name").value = res.firstName;
+            document.getElementById("last_name").value = res.lastName;
+            document.getElementById("email").value = res.email;
+            document.getElementById("phone").value = res.phone;
+            document.getElementById("address").value = res.address;
+        })
+
+}

@@ -1,16 +1,19 @@
 package com.cloudDomus.cloudDommus.User;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @ApiModel(description = "All details about a User.")
-public class User {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class User implements Serializable {
 
     @ApiModelProperty(notes = "The database generated User ID")
     private @Id @GeneratedValue Long id;

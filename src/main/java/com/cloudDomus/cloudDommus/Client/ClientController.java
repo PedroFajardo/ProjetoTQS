@@ -5,6 +5,7 @@ import java.util.List;
 import com.cloudDomus.cloudDommus.LoadDatabase;
 import com.cloudDomus.cloudDommus.Reservation.Reservation;
 import com.cloudDomus.cloudDommus.Reservation.ReservationController;
+import com.cloudDomus.cloudDommus.Reservation.ReservationRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.json.JSONArray;
@@ -26,6 +27,9 @@ public class ClientController {
 
     @Autowired
     ReservationController reservationController;
+
+    @Autowired
+    ReservationRepository reservationRepository;
 
     private final Logger log =  LoggerFactory.getLogger(LoadDatabase.class);
 
@@ -58,7 +62,7 @@ public class ClientController {
 
     @ApiOperation(value = "Add reservation to client", response = List.class)
     @PostMapping("/reservation/{id}")
-    public String putReservation(@PathVariable Long id, @RequestBody String params) throws JSONException {
+    public Reservation putReservation(@PathVariable Long id, @RequestBody String params) throws JSONException {
 
         Reservation reservation = reservationController.getReservationByID(id);
 
@@ -70,7 +74,7 @@ public class ClientController {
 
         reservation.setClient(client);
 
-        return "Reservation requested";
+        return reservationRepository.save(reservation);
     }
 
 }

@@ -2,12 +2,14 @@ package com.cloudDomus.cloudDommus.Worker;
 
 import com.cloudDomus.cloudDommus.Reservation.Reservation;
 import com.cloudDomus.cloudDommus.User.User;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,7 +17,8 @@ import java.util.List;
 @Data
 @Entity
 @ApiModel(description = "All details about a Worker.")
-public class Worker extends User{
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class Worker extends User implements Serializable {
 
     @Column
     @ApiModelProperty(notes = "Worker Comments")
@@ -27,7 +30,6 @@ public class Worker extends User{
 
     @OneToMany(mappedBy = "worker", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     @ApiModelProperty(notes = "Worker Reservation List")
-    @JsonManagedReference
     private List<Reservation> reservations = new ArrayList<>();
 
     public Worker(String firstName, String lastName, String email, String username, String password, String address, int phone, String[] comments, int[] reviewScores, List<Reservation> reservations) {
